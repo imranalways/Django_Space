@@ -13,11 +13,25 @@ def PostApi(request,id=0):
         post= Post.objects.all()
         post_serializer= PostSerializer(post,many=True)
         return JsonResponse(post_serializer.data,safe=False)
+
     elif request.method=='POST':
-        
         post_data=JSONParser().parse(request)
         post_serializer=PostSerializer(data=post_data)
         if post_serializer.is_valid():
             post_serializer.save()
             return JsonResponse("Added Successfully!!!",safe=False)
         return JsonResponse(post_data,safe=False)
+
+    elif request.method=='PUT':
+        post_data=JSONParser.parse(request)
+        post=Post.objects.get(PostId=post_date['PostId'])
+        post_serializer=PostSerializer(post,data=post_data)
+        if post_serializer.is_valid():
+            post_serializer.save()
+            return JsonResponse("Updated Successfully!!!",safe=False)
+        return JsonResponse(post_data,safe=False)
+    
+    elif request.method=='DELETE':
+        post=post.objects.get(PostId=id)
+        post.DELETE()
+        return JsonResponse("Deleted Successfully",safe=False)
