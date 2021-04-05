@@ -30,7 +30,7 @@ def PostApi(request,id=0):
 
     elif request.method=='PUT':
         post_data=JSONParser().parse(request)
-        post=Post.objects.get(PostId=post_data['PostId'])
+        post=Post.objects.get(PostId=post_data['id'])
         post_serializer=PostSerializer(post,data=post_data)
         if post_serializer.is_valid():
             post_serializer.save()
