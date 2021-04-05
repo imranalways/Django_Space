@@ -6,6 +6,12 @@ from PostApp.models import Post
 from PostApp.serializers import PostSerializer
 # Create your views here.
 
+@csrf_exempt
+def postgetbyid(request,id):
+    if request.method=='GET':
+        post= Post.objects.get(PostId=id)
+        post_serializer= PostSerializer(post,many=False)
+        return JsonResponse(post_serializer.data,safe=False)
 
 @csrf_exempt
 def PostApi(request,id=0):
@@ -36,3 +42,4 @@ def PostApi(request,id=0):
         post=Post.objects.get(PostId=post_data['PostId'])
         post.delete()
         return JsonResponse("Deleted Successfully",safe=False)
+        
