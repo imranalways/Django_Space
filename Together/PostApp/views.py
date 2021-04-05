@@ -23,8 +23,8 @@ def PostApi(request,id=0):
         return JsonResponse(post_data,safe=False)
 
     elif request.method=='PUT':
-        post_data=JSONParser.parse(request)
-        post=Post.objects.get(PostId=post_date['PostId'])
+        post_data=JSONParser().parse(request)
+        post=Post.objects.get(PostId=post_data['PostId'])
         post_serializer=PostSerializer(post,data=post_data)
         if post_serializer.is_valid():
             post_serializer.save()
