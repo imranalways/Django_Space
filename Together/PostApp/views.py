@@ -32,6 +32,7 @@ def PostApi(request,id=0):
         return JsonResponse(post_data,safe=False)
     
     elif request.method=='DELETE':
-        post=post.objects.get(PostId=id)
-        post.DELETE()
+        post_data=JSONParser().parse(request)
+        post=Post.objects.get(PostId=post_data['PostId'])
+        post.delete()
         return JsonResponse("Deleted Successfully",safe=False)
